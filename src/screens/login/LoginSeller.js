@@ -35,6 +35,11 @@ const LoginSeller = ({ navigation }) => {
             }
             const res = await handleLoginService(email, password);
             if (res.data && res.data.EC === 0) {
+                if (res.data.DT.userPermissions[0] === "NguoiMua") {
+                    navigation.navigate("HomeBuyer");
+                } else {
+                    navigation.navigate("HomeSeller");
+                }
                 // dispatch(
                 //   UserInfo(
                 //     res.data.DT.userName,
@@ -43,7 +48,6 @@ const LoginSeller = ({ navigation }) => {
                 //     res.data.DT.accountName,
                 //   ),
                 // );
-                navigation.navigate("HomeSeller");
                 setIsLoading(false);
             } else {
                 console.log(res.data.EM);
