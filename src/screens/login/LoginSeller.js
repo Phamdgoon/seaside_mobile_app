@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "./LoginStyle";
 import handleLoginService from "../../services/Service";
 import { useDispatch, useSelector } from "react-redux";
-// import { UserInfo } from "../../redux/actions";
+import { UserInfo } from "../../redux/actions";
 
 const LoginSeller = ({ navigation }) => {
     const [password, setPassword] = useState("");
@@ -38,16 +38,18 @@ const LoginSeller = ({ navigation }) => {
                 if (res.data.DT.userPermissions[0] === "NguoiMua") {
                     navigation.navigate("Drawer");
                 } else {
-                    navigation.navigate("HomeSeller");
+                    navigation.navigate("DrawerSeller");
                 }
-                // dispatch(
-                //   UserInfo(
-                //     res.data.DT.userName,
-                //     res.data.DT.userPermissions,
-                //     res.data.DT.avatar,
-                //     res.data.DT.accountName,
-                //   ),
-                // );
+                dispatch(
+                    UserInfo(
+                        res.data.DT.userName,
+                        res.data.DT.userPermissions,
+                        res.data.DT.avatar,
+                        res.data.DT.accountName,
+                        res.data.DT.nameShop
+                    )
+                );
+
                 setIsLoading(false);
             } else {
                 console.log(res.data.EM);

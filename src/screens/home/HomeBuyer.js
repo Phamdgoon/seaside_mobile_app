@@ -1,4 +1,11 @@
-import { View, Text, TextInput, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import ScrollingButtonMenu from "react-native-scroll-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -12,7 +19,6 @@ import {
 import * as services from "../../services/Service";
 
 import styles from "./HomeBuyerStyles";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const HomeBuyer = ({ navigation }) => {
   const [search, setSearch] = useState("");

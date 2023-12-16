@@ -12,7 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "./LoginStyle";
 import handleLoginService from "../../services/Service";
 import { useDispatch, useSelector } from "react-redux";
-import { UserBuyerInfo } from "../../redux/actions";
+import { UserInfo } from "../../redux/actions";
 
 const LoginBuyer = ({ navigation }) => {
     const [password, setPassword] = useState("");
@@ -25,6 +25,12 @@ const LoginBuyer = ({ navigation }) => {
     const showHidePassword = () => {
         setIsShowPassword(!isShowPassword);
     };
+
+    // const userInfoFromRedux = useSelector((state) => state);
+
+    // console.log(userInfoFromRedux);
+    // const { accountName, userName, avatar, userPermissions } =
+    //     userInfoFromRedux;
 
     const handleLogin = async () => {
         try {
@@ -42,7 +48,7 @@ const LoginBuyer = ({ navigation }) => {
                     navigation.navigate("HomeSeller");
                 }
                 dispatch(
-                    UserBuyerInfo(
+                    UserInfo(
                         res.data.DT.userName,
                         res.data.DT.userPermissions,
                         res.data.DT.avatar,
