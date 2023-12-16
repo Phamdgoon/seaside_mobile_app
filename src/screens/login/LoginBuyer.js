@@ -37,7 +37,7 @@ const LoginBuyer = ({ navigation }) => {
             const res = await handleLoginService(email, password);
             if (res.data && res.data.EC === 0) {
                 if (res.data.DT.userPermissions[0] === "NguoiMua") {
-                    navigation.navigate("HomeBuyer");
+                    navigation.navigate("Drawer");
                 } else {
                     navigation.navigate("HomeSeller");
                 }
@@ -51,6 +51,7 @@ const LoginBuyer = ({ navigation }) => {
                 );
                 setIsLoading(false);
             } else {
+                Alert.alert(res.data.EM);
                 setIsLoading(false);
             }
         } catch (error) {

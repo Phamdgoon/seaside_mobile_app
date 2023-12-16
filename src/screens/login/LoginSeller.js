@@ -36,7 +36,7 @@ const LoginSeller = ({ navigation }) => {
             const res = await handleLoginService(email, password);
             if (res.data && res.data.EC === 0) {
                 if (res.data.DT.userPermissions[0] === "NguoiMua") {
-                    navigation.navigate("HomeBuyer");
+                    navigation.navigate("Drawer");
                 } else {
                     navigation.navigate("HomeSeller");
                 }
@@ -128,9 +128,7 @@ const LoginSeller = ({ navigation }) => {
                     </View>
                 </TouchableOpacity>
             </View>
-
             <Text style={styles.text}>Hoặc</Text>
-
             <View style={styles.loginSocial}>
                 <View style={styles.loginBtn}>
                     <TouchableOpacity
