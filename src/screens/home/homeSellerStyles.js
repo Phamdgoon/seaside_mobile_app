@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#eee",
         borderRadius: 15,
         paddingHorizontal: 5,
-        marginHorizontal: 10,
+        marginHorizontal: 40,
     },
     // search_input: {
     //   flexGrow: 1,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
 
     nameShop: {
         color: "#fff",
-        fontWeight: "500",
+        fontWeight: "700",
     },
 });
 
