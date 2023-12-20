@@ -15,6 +15,8 @@ import DrawerSellerContent from "./src/components/drawerNav/drawerSellerContent/
 import AddCategory from "./src/screens/addCategory/AddCategory";
 import AddProduct from "./src/screens/addProduct/AddProduct";
 import ProfileBuyer from "./src/screens/profile/ProfileBuyer";
+import ProductDetail from "./src/screens/detailProduct/ProductDetail";
+import OrderProduct from "./src/screens/orderProduct/OrderProduct";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +67,14 @@ const App = () => {
                     <Stack.Screen
                         name="ProfileBuyer"
                         component={ProfileBuyer}
+                    />
+                    <Stack.Screen
+                        name="ProductDetail"
+                        component={ProductDetail}
+                    />
+                    <Stack.Screen
+                        name="OrderProduct"
+                        component={OrderProduct}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

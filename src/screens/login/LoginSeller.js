@@ -25,6 +25,19 @@ const LoginSeller = ({ navigation }) => {
         setIsShowPassword(!isShowPassword);
     };
 
+    // const userInfoFromRedux = useSelector((state) => state);
+
+    // console.log(userInfoFromRedux);
+    // const {
+    //     userName,
+    //     userPermissions,
+    //     userAvatar,
+    //     accountName,
+    //     nameShop,
+    //     address,
+    //     phoneNumber,
+    // } = userInfoFromRedux;
+
     const handleLogin = async () => {
         try {
             setIsLoading(true);
@@ -75,7 +88,9 @@ const LoginSeller = ({ navigation }) => {
                     style={styles.logo}
                     source={require("../../../assets/logo.png")}
                 />
-                <Text>Account Login Seller</Text>
+                <Text style={{ fontSize: 20, color: "#45849f" }}>
+                    Account Login Seller
+                </Text>
             </View>
             <View style={styles.loginInput}>
                 <TextInput

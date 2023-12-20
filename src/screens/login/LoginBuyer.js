@@ -29,8 +29,15 @@ const LoginBuyer = ({ navigation }) => {
     // const userInfoFromRedux = useSelector((state) => state);
 
     // console.log(userInfoFromRedux);
-    // const { accountName, userName, avatar, userPermissions } =
-    //     userInfoFromRedux;
+    // const {
+    //     userName,
+    //     userPermissions,
+    //     userAvatar,
+    //     accountName,
+    //     nameShop,
+    //     address,
+    //     phoneNumber,
+    // } = userInfoFromRedux;
 
     const handleLogin = async () => {
         try {
@@ -52,7 +59,10 @@ const LoginBuyer = ({ navigation }) => {
                         res.data.DT.userName,
                         res.data.DT.userPermissions,
                         res.data.DT.avatar,
-                        res.data.DT.accountName
+                        res.data.DT.accountName,
+                        res.data.DT.nameShop,
+                        res.data.DT.address,
+                        res.data.DT.phoneNumber
                     )
                 );
                 setIsLoading(false);
@@ -79,7 +89,9 @@ const LoginBuyer = ({ navigation }) => {
                     style={styles.logo}
                     source={require("../../../assets/logo.png")}
                 />
-                <Text>Account Login Buyer</Text>
+                <Text style={{ color: "tomato", fontSize: 20 }}>
+                    Account Login Buyer
+                </Text>
             </View>
             <View style={styles.loginInput}>
                 <TextInput

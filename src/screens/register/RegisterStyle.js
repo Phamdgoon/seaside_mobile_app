@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 20,
         marginTop: 50,
+        backgroundColor: "#fff",
     },
     title: {
         fontSize: 25,
@@ -28,10 +29,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: "100%",
         alignItems: "center",
+        flexDirection: "row",
+        gap: 5,
     },
     registerButtonText: {
         color: "white",
         fontSize: 16,
+        marginLeft: 90,
     },
 });
 

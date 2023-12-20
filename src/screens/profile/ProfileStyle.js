@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         gap: 20,
+        backgroundColor: "#fff",
     },
     itemContainer: {
         paddingHorizontal: 25,

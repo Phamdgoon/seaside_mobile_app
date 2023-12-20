@@ -1,4 +1,4 @@
-import { SET_USER_INFO, RESET_STATE } from "./actions";
+import { SET_USER_INFO, RESET_STATE, SET_SELECTED_PRODUCT } from "./actions";
 
 const initialState = {
     userName: "",
@@ -6,6 +6,9 @@ const initialState = {
     userAvatar: "",
     accountName: "",
     nameShop: "",
+    phoneNumber: "",
+    address: "",
+    selectedProduct: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,9 +21,16 @@ const rootReducer = (state = initialState, action) => {
                 userAvatar: action.payload.userAvatar,
                 accountName: action.payload.accountName,
                 nameShop: action.payload.nameShop,
+                address: action.payload.address,
+                phoneNumber: action.payload.phoneNumber,
             };
         case RESET_STATE:
             return initialState;
+        case SET_SELECTED_PRODUCT:
+            return {
+                ...state,
+                selectedProduct: action.payload,
+            };
         default:
             return state;
     }

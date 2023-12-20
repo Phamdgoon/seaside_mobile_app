@@ -22,6 +22,7 @@ const RegisterSeller = ({ navigation }) => {
 
     const handleRegisterSeller = async () => {
         try {
+            setIsLoading(true);
             if (!email || !password || !username || !phoneNumber || !nameShop) {
                 Alert.alert("Missing parameter!!");
                 return;

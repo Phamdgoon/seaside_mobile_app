@@ -21,6 +21,7 @@ const RegisterBuyer = ({ navigation }) => {
 
     const handleRegisterBuyer = async () => {
         try {
+            setIsLoading(true);
             if (
                 !email ||
                 !password ||

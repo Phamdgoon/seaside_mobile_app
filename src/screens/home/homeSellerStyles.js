@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: Dimensions.get("window").height,
         marginTop: StatusBar.currentHeight,
+        backgroundColor: "#fff",
     },
     top_section: {
         backgroundColor: "tomato",
