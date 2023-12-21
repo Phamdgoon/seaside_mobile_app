@@ -88,9 +88,7 @@ const LoginSeller = ({ navigation }) => {
                     style={styles.logo}
                     source={require("../../../assets/logo.png")}
                 />
-                <Text style={{ fontSize: 20, color: "#45849f" }}>
-                    Account Login Seller
-                </Text>
+                <Text>Account Login Seller</Text>
             </View>
             <View style={styles.loginInput}>
                 <TextInput

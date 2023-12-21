@@ -27,7 +27,6 @@ const LoginBuyer = ({ navigation }) => {
     };
 
     // const userInfoFromRedux = useSelector((state) => state);
-
     // console.log(userInfoFromRedux);
     // const {
     //     userName,
@@ -89,9 +88,7 @@ const LoginBuyer = ({ navigation }) => {
                     style={styles.logo}
                     source={require("../../../assets/logo.png")}
                 />
-                <Text style={{ color: "tomato", fontSize: 20 }}>
-                    Account Login Buyer
-                </Text>
+                <Text>Account Login Buyer</Text>
             </View>
             <View style={styles.loginInput}>
                 <TextInput

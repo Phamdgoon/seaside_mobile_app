@@ -60,6 +60,15 @@ const handleAddNewCategory = async (name, idParent) => {
     return res;
 };
 
+const handleCreateNewProduct = async (data) => {
+    const res = await axios.post(
+        "http://192.168.1.12:8080/create-new-product",
+        data
+    );
+
+    return res;
+};
+
 export default handleLoginService;
 export {
     handleRegisterBuyerService,
@@ -67,4 +76,5 @@ export {
     handleGetProducts,
     handleGetCategoryService,
     handleAddNewCategory,
+    handleCreateNewProduct,
 };
