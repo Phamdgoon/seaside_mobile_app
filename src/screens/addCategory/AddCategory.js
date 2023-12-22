@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import * as services from "../../services/Service";
+import { useSelector } from "react-redux";
 
 import styles from "./AddCateStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -21,6 +22,7 @@ const AddCategory = ({ navigation }) => {
   const [items, setItems] = useState([]);
   const [loading, setloading] = useState(false);
 
+  const userNameRedux = useSelector((state) => state.userName);
   // get category
   useEffect(() => {
     const getCategory = async () => {
@@ -47,6 +49,10 @@ const AddCategory = ({ navigation }) => {
   }, []);
 
   const handleAddNew = async () => {
+    if (!userNameRedux) {
+      Alert.alert("Không tìm thấy thông tin shop!");
+      return;
+    }
     if (cateName.trim() === "" || !cateName.trim()) {
       Alert.alert("Nhập tên danh mục!");
       return;
@@ -76,9 +82,11 @@ const AddCategory = ({ navigation }) => {
 
     try {
       setloading(true);
+      const userName = userNameRedux;
       const res = await services.handleAddNewCategory(
         cateName,
-        itemSelected.id
+        itemSelected.id,
+        userName
       );
       if (res && res.data && res.data.EC === 0) {
         Alert.alert("Thêm thành công!");

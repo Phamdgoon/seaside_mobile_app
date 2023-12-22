@@ -48,12 +48,13 @@ const handleGetCategoryService = async () => {
   return data;
 };
 
-const handleAddNewCategory = async (name, idParent) => {
+const handleAddNewCategory = async (name, idParent, userName) => {
   const res = await axios.post(
     "http://192.168.1.99:8085/add-new-category-child",
     {
       nameCategoryChild: name,
       idCategory: idParent,
+      userName,
     }
   );
 
