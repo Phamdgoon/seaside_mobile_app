@@ -18,6 +18,7 @@ import ProfileBuyer from "./src/screens/profile/ProfileBuyer";
 import ProductDetail from "./src/screens/detailProduct/ProductDetail";
 import OrderProduct from "./src/screens/orderProduct/OrderProduct";
 import PaymentMethod from "./src/screens/payment/PaymentMethod";
+import OrderPlaced from "./src/screens/orderPlaced/OrderPlaced";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +82,7 @@ const App = () => {
                         name="PaymentMethod"
                         component={PaymentMethod}
                     />
+                    <Stack.Screen name="OrderPlaced" component={OrderPlaced} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
