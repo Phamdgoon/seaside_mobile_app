@@ -11,17 +11,18 @@ import styles from "./OrderProductStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
     faArrowAltCircleRight,
+    faArrowLeft,
     faLocation,
 } from "@fortawesome/free-solid-svg-icons";
 import { handleBuyerOrder } from "../../services/Service";
 import { useSelector } from "react-redux";
 const OrderProduct = ({ navigation, route }) => {
     const addressRedux = useSelector((state) => state);
-    const { quantity } = route.params;
+    const { quantity, isVisible } = route.params;
+    const { titlePayment } = route.params;
 
     const { phoneNumber, accountName, address, userName, idShippingAddress } =
         addressRedux;
-    console.log(idShippingAddress);
     const selectedProduct = useSelector((state) => state.selectedProduct);
     const product = selectedProduct;
     // Chuyển đổi Price
@@ -42,16 +43,15 @@ const OrderProduct = ({ navigation, route }) => {
                 username: userName,
                 id_shipping_address: idShippingAddress,
                 id_product_detail: product.id_product_detail,
-                payment_methods: "Thanh toán khi nhận hàng",
+                payment_methods: titlePayment,
                 quantity: quantity,
                 size: product.size,
                 price: product.price * quantity,
-                status: "Chờ xác nhận",
+                status: "Pending",
             };
 
             const response = await handleBuyerOrder(data);
 
-            // Kiểm tra phản hồi từ API
             if (response && response.data && response.data.EC === 0) {
                 Alert.alert("Đặt hàng thành công");
             } else {
@@ -66,10 +66,21 @@ const OrderProduct = ({ navigation, route }) => {
         }
     };
 
+    const handlePaymentMethod = () => {
+        navigation.navigate("PaymentMethod", { quantity });
+    };
+
+    const handleBack = () => {
+        navigation.navigate("ProductDetail");
+    };
+
     return (
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.address}>
+                    <TouchableOpacity onPress={handleBack}>
+                        <FontAwesomeIcon icon={faArrowLeft} size={20} />
+                    </TouchableOpacity>
                     <View style={styles.addressLeft}>
                         <FontAwesomeIcon icon={faLocation} />
                     </View>
@@ -135,10 +146,13 @@ const OrderProduct = ({ navigation, route }) => {
                         Phương thức thanh toán
                     </Text>
                     <View style={styles.paymentDetail}>
-                        <Text style={{ fontSize: 15 }}>
-                            Thanh toán khi nhận hàng
-                        </Text>
-                        <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                        <Text style={{ fontSize: 15 }}>{titlePayment}</Text>
+                        <TouchableOpacity
+                            style={styles.btnPaymentMethod}
+                            onPress={handlePaymentMethod}
+                        >
+                            <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.line}></View>
