@@ -19,6 +19,7 @@ const ProductDetail = ({ route, navigation }) => {
     const toggleAlert = () => {
         setIsAlertVisible(true);
     };
+
     const handleToggle = () => {
         toggleAlert();
     };
@@ -26,6 +27,7 @@ const ProductDetail = ({ route, navigation }) => {
     const handleCloseModal = () => {
         setIsAlertVisible(false);
     };
+
     const product = selectedProduct;
     return (
         <View style={styles.container}>
