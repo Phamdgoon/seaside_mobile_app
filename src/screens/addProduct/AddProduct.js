@@ -234,6 +234,7 @@ const AddProduct = ({ navigation }) => {
     };
 
     const res = await services.handleCreateNewProduct(data);
+    console.log(res.data);
     if (res && res.data && res.data.EC === 0) {
       Alert.alert("Create successful!");
       setProdName("");
