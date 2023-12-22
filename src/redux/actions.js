@@ -14,7 +14,8 @@ export const UserInfo = (
     accountName,
     nameShop,
     address,
-    phoneNumber
+    phoneNumber,
+    idShippingAddress
 ) => ({
     type: SET_USER_INFO,
     payload: {
@@ -25,6 +26,7 @@ export const UserInfo = (
         nameShop: nameShop || null,
         address: address || null,
         phoneNumber: phoneNumber || null,
+        idShippingAddress: idShippingAddress || null,
     },
 });
 

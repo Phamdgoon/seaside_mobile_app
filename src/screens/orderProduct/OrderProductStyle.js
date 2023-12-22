@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        width: 70,
-        height: 70,
+        width: 80,
+        height: 80,
         marginLeft: 20,
     },
     productName: {
@@ -124,6 +124,10 @@ const styles = StyleSheet.create({
     countPrice: {
         color: "tomato",
         fontSize: 15,
+    },
+    quantitySize: {
+        flexDirection: "row",
+        gap: 10,
     },
     paymentProduct: {
         gap: 10,

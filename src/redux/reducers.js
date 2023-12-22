@@ -8,6 +8,7 @@ const initialState = {
     nameShop: "",
     phoneNumber: "",
     address: "",
+    idShippingAddress: "",
     selectedProduct: null,
 };
 
@@ -23,6 +24,7 @@ const rootReducer = (state = initialState, action) => {
                 nameShop: action.payload.nameShop,
                 address: action.payload.address,
                 phoneNumber: action.payload.phoneNumber,
+                idShippingAddress: action.payload.idShippingAddress,
             };
         case RESET_STATE:
             return initialState;

@@ -69,6 +69,10 @@ const handleCreateNewProduct = async (data) => {
     return res;
 };
 
+const handleBuyerOrder = async (data) => {
+    return await axios.post("http://192.168.1.12:8080/buyer-order", data);
+};
+
 export default handleLoginService;
 export {
     handleRegisterBuyerService,
@@ -77,4 +81,5 @@ export {
     handleGetCategoryService,
     handleAddNewCategory,
     handleCreateNewProduct,
+    handleBuyerOrder,
 };

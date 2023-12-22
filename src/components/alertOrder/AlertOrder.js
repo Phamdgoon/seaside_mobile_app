@@ -26,7 +26,6 @@ const AlertOrder = ({
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        // Lấy giá trị size từ Redux và cập nhật vào dropdown items
         if (product.size) {
             const sizeArray = Array.isArray(product.size)
                 ? product.size
@@ -49,7 +48,9 @@ const AlertOrder = ({
         }
     };
     const handleOrder = () => {
-        navigation.navigate("OrderProduct");
+        navigation.navigate("OrderProduct", {
+            quantity: quantity,
+        });
     };
     return (
         <Modal
@@ -73,7 +74,9 @@ const AlertOrder = ({
                             <Text style={styles.textPrice}>
                                 {product.price}
                             </Text>
-                            <Text style={{ fontSize: 15 }}>Kho: 10</Text>
+                            <Text style={{ fontSize: 15 }}>
+                                Kho: {product.product_number}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.line}></View>

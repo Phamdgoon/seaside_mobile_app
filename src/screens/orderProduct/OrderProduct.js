@@ -1,23 +1,70 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    Alert,
+} from "react-native";
 import styles from "./OrderProductStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
     faArrowAltCircleRight,
     faLocation,
 } from "@fortawesome/free-solid-svg-icons";
+import { handleBuyerOrder } from "../../services/Service";
 import { useSelector } from "react-redux";
-const OrderProduct = ({ navigation }) => {
+const OrderProduct = ({ navigation, route }) => {
     const addressRedux = useSelector((state) => state);
+    const { quantity } = route.params;
 
-    const { phoneNumber, accountName, address } = addressRedux;
+    const { phoneNumber, accountName, address, userName, idShippingAddress } =
+        addressRedux;
+    console.log(idShippingAddress);
     const selectedProduct = useSelector((state) => state.selectedProduct);
     const product = selectedProduct;
-
     // Chuyển đổi Price
     const priceAsString = product.price;
     const priceAsNumber = parseFloat(priceAsString);
-    const updatedPrice = isNaN(priceAsNumber) ? 0 : priceAsNumber + 15000;
+    const countPrice = isNaN(priceAsNumber) ? 0 : priceAsNumber * quantity;
+    const totalPrice = isNaN(priceAsNumber)
+        ? 0
+        : priceAsNumber * quantity + 15000;
+    const priceFinal = totalPrice.toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    });
+
+    const handleOrder = async () => {
+        try {
+            const data = {
+                username: userName,
+                id_shipping_address: idShippingAddress,
+                id_product_detail: product.id_product_detail,
+                payment_methods: "Thanh toán khi nhận hàng",
+                quantity: quantity,
+                size: product.size,
+                price: product.price * quantity,
+                status: "Chờ xác nhận",
+            };
+
+            const response = await handleBuyerOrder(data);
+
+            // Kiểm tra phản hồi từ API
+            if (response && response.data && response.data.EC === 0) {
+                Alert.alert("Đặt hàng thành công");
+            } else {
+                Alert.alert("Đặt hàng không thành công");
+            }
+        } catch (error) {
+            Alert.alert(
+                "Đặt hàng không thành công",
+                "Có lỗi xảy ra trong quá trình xử lý đơn hàng."
+            );
+            console.error(error);
+        }
+    };
 
     return (
         <ScrollView>
@@ -51,6 +98,10 @@ const OrderProduct = ({ navigation }) => {
                         <Text style={styles.productName}>
                             {product.name_product}
                         </Text>
+                        <View style={styles.quantitySize}>
+                            <Text>Size: {product.size}</Text>
+                            <Text>Số lượng: {quantity}</Text>
+                        </View>
                         <Text style={styles.productPrice}>
                             {product.price} đ
                         </Text>
@@ -63,7 +114,7 @@ const OrderProduct = ({ navigation }) => {
                     <View style={styles.lineDeli}></View>
                     <View style={styles.methodDeli}>
                         <Text style={styles.textMethod}>Nhanh</Text>
-                        <Text style={styles.textPrice}>15.000 đ</Text>
+                        <Text style={styles.textPrice}>15000 đ</Text>
                     </View>
                     <Text style={styles.dayReceive}>
                         Nhận hàng trong 3 ngày kể từ ngày đặt
@@ -74,9 +125,9 @@ const OrderProduct = ({ navigation }) => {
                 </View>
                 <View style={styles.countPriceProduct}>
                     <Text style={styles.countTitle}>
-                        Tổng số tiền (1 sản phẩm)
+                        Tổng số tiền ({quantity} sản phẩm)
                     </Text>
-                    <Text style={styles.countPrice}>{product.price} đ</Text>
+                    <Text style={styles.countPrice}>{countPrice} đ</Text>
                 </View>
                 <View style={styles.line}></View>
                 <View style={styles.paymentMethod}>
@@ -100,7 +151,7 @@ const OrderProduct = ({ navigation }) => {
                             Tổng tiền hàng
                         </Text>
                         <Text style={styles.paymentProductDetailText}>
-                            {product.price} đ
+                            {countPrice} đ
                         </Text>
                     </View>
                     <View style={styles.paymentProductDetail}>
@@ -108,16 +159,13 @@ const OrderProduct = ({ navigation }) => {
                             Tổng tiền phí vận chuyển
                         </Text>
                         <Text style={styles.paymentProductDetailText}>
-                            15.000 đ
+                            15000 đ
                         </Text>
                     </View>
                     <View style={styles.countPayment}>
                         <Text style={{ fontSize: 20 }}>Tổng thanh toán</Text>
                         <Text style={{ color: "tomato", fontSize: 17 }}>
-                            {updatedPrice.toLocaleString("vi-VN", {
-                                style: "currency",
-                                currency: "VND",
-                            })}
+                            {priceFinal}
                         </Text>
                     </View>
                 </View>
@@ -131,15 +179,13 @@ const OrderProduct = ({ navigation }) => {
                     <View style={styles.paymentButtonTitle}>
                         <Text style={styles.paymentText}>Tổng thanh toán</Text>
                         <Text style={styles.paymentPriceButton}>
-                            {updatedPrice.toLocaleString("vi-VN", {
-                                style: "currency",
-                                currency: "VND",
-                            })}
+                            {priceFinal}
                         </Text>
                     </View>
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.btnPayment}
+                        onPress={handleOrder}
                     >
                         <Text style={styles.btnTextPayment}>Đặt hàng</Text>
                     </TouchableOpacity>

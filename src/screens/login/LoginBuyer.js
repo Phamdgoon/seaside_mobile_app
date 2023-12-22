@@ -36,6 +36,7 @@ const LoginBuyer = ({ navigation }) => {
     //     nameShop,
     //     address,
     //     phoneNumber,
+    //     idShippingAddress,
     // } = userInfoFromRedux;
 
     const handleLogin = async () => {
@@ -61,7 +62,8 @@ const LoginBuyer = ({ navigation }) => {
                         res.data.DT.accountName,
                         res.data.DT.nameShop,
                         res.data.DT.address,
-                        res.data.DT.phoneNumber
+                        res.data.DT.phoneNumber,
+                        res.data.DT.idShippingAddress
                     )
                 );
                 setIsLoading(false);
