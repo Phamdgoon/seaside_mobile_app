@@ -13,10 +13,8 @@ import {
   faSearch,
   faClose,
   faBars,
-  faCartShopping,
   faPlusCircle,
   faCheck,
-  faExchange,
   faRotateRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
@@ -24,7 +22,7 @@ import * as services from "../../services/Service";
 
 import styles from "./homeSellerStyles";
 
-const HomeSeller = ({ navigation, handleToggleDrawer }) => {
+const HomeSeller = ({ route, navigation, handleToggleDrawer }) => {
   const [search, setSearch] = useState("");
   const [listOrders, setListOrders] = useState([]);
   const [loadingOrders, setloadingOrders] = useState(false);
@@ -33,6 +31,7 @@ const HomeSeller = ({ navigation, handleToggleDrawer }) => {
 
   let { nameShop, userName } = userInfoFromRedux;
 
+  // if (route.params.useName) console.log("sss", route.params.useName);
   const handleAddProduct = () => {
     navigation.navigate("AddProduct");
   };
@@ -41,19 +40,37 @@ const HomeSeller = ({ navigation, handleToggleDrawer }) => {
     navigation.navigate("AddCategory");
   };
 
+  const getAllOrder = async () => {
+    setloadingOrders(true);
+    const res = await services.handleGetAllOrders(
+      userName || route.params.userName
+    );
+    setListOrders(res.data.DT);
+
+    setloadingOrders(false);
+  };
+
   //get all order
   useEffect(() => {
     getAllOrder();
   }, []);
 
-  const getAllOrder = async () => {
-    setloadingOrders(true);
-    const res = await services.handleGetAllOrders(userName);
+  useEffect(() => {
+    getAllOrder();
+  }, [route.params]);
 
-    if (res.data && res.data.DT) {
-      setListOrders(res.data.DT);
+  const directToDetail = (order) => {
+    navigation.navigate("OrderDetail", order);
+  };
+
+  const handleConfirm = async (id) => {
+    try {
+      await services.handleConfirmOrder(id);
+
+      getAllOrder();
+    } catch (error) {
+      console.log(error);
     }
-    setloadingOrders(false);
   };
 
   return (
@@ -123,7 +140,12 @@ const HomeSeller = ({ navigation, handleToggleDrawer }) => {
           <ScrollView>
             {listOrders &&
               listOrders.map((item, index) => (
-                <View key={index} style={styles.orderItem}>
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={() => directToDetail(item)}
+                  key={index}
+                  style={styles.orderItem}
+                >
                   <Image
                     style={styles.orderImage}
                     source={{ uri: item.image }}
@@ -134,15 +156,19 @@ const HomeSeller = ({ navigation, handleToggleDrawer }) => {
                     </Text>
                     <Text style={styles.desc}># {item.name}</Text>
                   </View>
-
-                  {/* <View style={styles.btnRejectCont}>
-                    <FontAwesomeIcon icon={faClose} color="#d43839" size={24} />
-                  </View> */}
-
-                  <TouchableOpacity style={styles.btnAcceptCont}>
-                    <FontAwesomeIcon icon={faCheck} color="#28b25a" size={24} />
-                  </TouchableOpacity>
-                </View>
+                  {item.status !== "Processing" ? (
+                    <TouchableOpacity
+                      onPress={() => handleConfirm(item.id_order_detail)}
+                      style={styles.btnRejectCont}
+                    >
+                      <FontAwesomeIcon icon={faCheck} color="red" size={24} />
+                    </TouchableOpacity>
+                  ) : (
+                    <View style={styles.btnAcceptCont}>
+                      <Text style={styles.colorBlue}>Processing</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
               ))}
           </ScrollView>
         </View>
