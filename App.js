@@ -19,6 +19,7 @@ import ProductDetail from "./src/screens/detailProduct/ProductDetail";
 import OrderProduct from "./src/screens/orderProduct/OrderProduct";
 import PaymentMethod from "./src/screens/payment/PaymentMethod";
 import OrderPlaced from "./src/screens/orderPlaced/OrderPlaced";
+import OrderDetail from "./src/screens/orderDetail/OrderDetail";
 
 const Stack = createNativeStackNavigator();
 
@@ -83,6 +84,7 @@ const App = () => {
                         component={PaymentMethod}
                     />
                     <Stack.Screen name="OrderPlaced" component={OrderPlaced} />
+                    <Stack.Screen name="OrderDetail" component={OrderDetail} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

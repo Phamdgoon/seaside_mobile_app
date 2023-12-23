@@ -157,6 +157,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 15,
   },
+  colorBlue: {
+    color: "blue",
+  },
 });
 
 export default styles;

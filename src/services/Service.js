@@ -82,6 +82,21 @@ const handleGetAllOrders = async (userName) => {
     return res;
 };
 
+const handleGetAllOrdersBuyer = async (userName) => {
+    const username = userName;
+    const res = await axios.post("http://192.168.1.12:8080/get-orders-buyer", {
+        username,
+    });
+    return res;
+};
+
+const handleConfirmOrder = async (id) => {
+    const res = await axios.post("http://192.168.1.12:8080/confirm-order", {
+        id,
+    });
+    return res;
+};
+
 export default handleLoginService;
 export {
     handleRegisterBuyerService,
@@ -92,4 +107,6 @@ export {
     handleCreateNewProduct,
     handleBuyerOrder,
     handleGetAllOrders,
+    handleConfirmOrder,
+    handleGetAllOrdersBuyer,
 };

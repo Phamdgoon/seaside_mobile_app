@@ -54,6 +54,7 @@ const OrderProduct = ({ navigation, route }) => {
 
             if (response && response.data && response.data.EC === 0) {
                 Alert.alert("Đặt hàng thành công");
+                navigation.navigate("OrderPlaced");
             } else {
                 Alert.alert("Đặt hàng không thành công");
             }
